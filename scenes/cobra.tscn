@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://br31scr5k4bi4"]
+
+[ext_resource type="Script" uid="uid://byhi8xe7dd2yy" path="res://scenes/cobra.gd" id="1_x40ej"]
+[ext_resource type="Texture2D" uid="uid://b6gmsb3qngln5" path="res://assets/sprites/cobra.png" id="2_x40ej"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rock"]
+size = Vector2(125, 90.5)
+
+[sub_resource type="Animation" id="Animation_x40ej"]
+resource_name = "rastejar"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cobras:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.2, 0.33333334, 0.43333334, 0.53333336, 0.6333333, 0.73333335, 0.79999995, 0.8666667, 0.93333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 11]
+}
+
+[sub_resource type="Animation" id="Animation_l8mt4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Cobras:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yxuhc"]
+_data = {
+&"RESET": SubResource("Animation_l8mt4"),
+&"rastejar": SubResource("Animation_x40ej")
+}
+
+[node name="cobra" type="Area2D"]
+script = ExtResource("1_x40ej")
+
+[node name="Cobras" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+texture = ExtResource("2_x40ej")
+hframes = 3
+vframes = 4
+region_rect = Rect2(0.74, 15.710562, 99.94454, 194.4871)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1, 95.25)
+shape = SubResource("RectangleShape2D_rock")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_yxuhc")
+}
+autoplay = "rastejar"

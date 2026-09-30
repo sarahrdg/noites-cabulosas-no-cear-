@@ -1,0 +1,37 @@
+[gd_scene load_steps=3 format=3 uid="uid://kxokffvvpikk"]
+
+[ext_resource type="Script" uid="uid://b0w8yvypqhrwy" path="res://scripts/hud.gd" id="1_0mwgc"]
+[ext_resource type="Texture2D" uid="uid://c53raq2v5mf1d" path="res://assets/sprites/Heart.png" id="2_hqnrr"]
+
+[ext_resource type="FontFile" uid="uid://cticxo3uyodu5" path="res://assets/fonts/trado.ttf" id="3_font"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_score"]
+font = ExtResource("3_font")
+font_size = 48
+font_color = Color(1, 1, 1, 1)
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_0mwgc")
+
+[node name="Heart" type="Sprite2D" parent="."]
+position = Vector2(45.307472, 35.75)
+scale = Vector2(0.5114943, 0.5114943)
+texture = ExtResource("2_hqnrr")
+
+[node name="Heart2" type="Sprite2D" parent="."]
+position = Vector2(103, 35.75)
+scale = Vector2(0.5114943, 0.5114943)
+texture = ExtResource("2_hqnrr")
+
+[node name="Heart3" type="Sprite2D" parent="."]
+position = Vector2(164, 36)
+scale = Vector2(0.5114943, 0.5114943)
+texture = ExtResource("2_hqnrr")
+
+[node name="ScoreLabel" type="Label" parent="."]
+offset_left = 800.0
+offset_top = 20.0
+offset_right = 1100.0
+offset_bottom = 80.0
+text = "TIME: 0"
+label_settings = SubResource("LabelSettings_score")

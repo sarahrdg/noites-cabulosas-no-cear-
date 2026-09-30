@@ -1,0 +1,56 @@
+[gd_scene load_steps=5 format=3 uid="uid://bh2kwgrfctqny"]
+
+[ext_resource type="Script" path="res://scenes/ui/level_complete.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://0hhneeu676w0" path="res://assets/images/background_creditos.png" id="2_bg"]
+[ext_resource type="FontFile" uid="uid://cticxo3uyodu5" path="res://assets/fonts/trado.ttf" id="3_font"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_custom"]
+font = ExtResource("3_font")
+font_size = 120
+font_color = Color(1, 0.9529412, 0.8509804, 1)
+
+[node name="LevelComplete" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_script")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(575, 321.5)
+scale = Vector2(0.6010417, 0.5972222)
+texture = ExtResource("2_bg")
+
+[node name="Content" type="Sprite2D" parent="."]
+position = Vector2(575, 323.00003)
+scale = Vector2(0.5989583, 0.6)
+
+[node name="Label" type="Label" parent="Content"]
+offset_left = -355.6174
+offset_top = -215.00003
+offset_right = 373.3826
+offset_bottom = -3.0517578e-05
+text = "NÍVEL COMPLETO!"
+label_settings = SubResource("LabelSettings_custom")
+horizontal_alignment = 1
+
+[node name="BtnNextLevel" type="Button" parent="."]
+layout_mode = 0
+offset_left = 484.0
+offset_top = 323.0
+offset_right = 683.0
+offset_bottom = 391.0
+text = "PRÓXIMO NÍVEL"
+
+[node name="BtnMenu" type="Button" parent="."]
+layout_mode = 0
+offset_left = 484.0
+offset_top = 415.0
+offset_right = 683.0
+offset_bottom = 483.0
+text = "MENU INICIAL"
+
+[connection signal="button_up" from="BtnNextLevel" to="." method="_on_btn_next_level_button_up"]
+[connection signal="button_up" from="BtnMenu" to="." method="_on_btn_back_menu_button_up"]

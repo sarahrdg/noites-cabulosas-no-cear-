@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/end_game.gd" id="2"]
+
+[ext_resource type="Texture2D" path="res://assets/noites/noites_background.png" id="1"]
+
+[node name="Fim" type="Control"]
+script = ExtResource("2")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Overlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.015, 0.04, 0.62)
+
+[node name="Title" type="Label" parent="."]
+offset_left = 220.0
+offset_top = 130.0
+offset_right = 932.0
+offset_bottom = 230.0
+text = "A NOITE TE PEGOU..."
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 52
+theme_override_colors/font_color = Color(0.93, 0.78, 0.68, 1)
+
+[node name="Text" type="Label" parent="."]
+offset_left = 250.0
+offset_top = 240.0
+offset_right = 902.0
+offset_bottom = 310.0
+text = "Sua coragem chegou a zero. As lendas venceram desta vez."
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.84, 0.81, 0.76, 1)
+
+[node name="Retry" type="Button" parent="."]
+offset_left = 390.0
+offset_top = 350.0
+offset_right = 762.0
+offset_bottom = 415.0
+text = "TENTAR NOVAMENTE"
+theme_override_font_sizes/font_size = 19
+
+[node name="Menu" type="Button" parent="."]
+offset_left = 390.0
+offset_top = 435.0
+offset_right = 762.0
+offset_bottom = 500.0
+text = "MENU INICIAL"
+theme_override_font_sizes/font_size = 19
+
+[connection signal="pressed" from="Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Menu" to="." method="_on_menu_pressed"]

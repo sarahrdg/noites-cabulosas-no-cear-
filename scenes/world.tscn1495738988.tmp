@@ -1,0 +1,159 @@
+[gd_scene load_steps=15 format=3 uid="uid://ddsp6ap7v2q74"]
+
+[ext_resource type="Texture2D" uid="uid://x6s4heij8i0k" path="res://assets/images/mar-sprite.png" id="1_nnsk1"]
+[ext_resource type="Script" uid="uid://f7jowxjcr6ry" path="res://scenes/world.gd" id="1_qfnet"]
+[ext_resource type="PackedScene" uid="uid://kxokffvvpikk" path="res://scenes/ui/hud.tscn" id="5_i7141"]
+[ext_resource type="Script" uid="uid://ckxte6f214v2n" path="res://scripts/ship.gd" id="5_qfnet"]
+[ext_resource type="Texture2D" uid="uid://xxi6redhmna2" path="res://assets/sprites/ship.png" id="6_i7141"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k0juu"]
+size = Vector2(115, 102)
+
+[sub_resource type="Animation" id="Animation_k0juu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(2, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qfnet"]
+resource_name = "walk_down"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(1, 2)]
+}
+
+[sub_resource type="Animation" id="Animation_71j4m"]
+resource_name = "walk_foward"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(2, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_i7141"]
+resource_name = "walk_left"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_4mrxx"]
+resource_name = "walk_up"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7r4gi"]
+_data = {
+&"RESET": SubResource("Animation_k0juu"),
+&"walk_down": SubResource("Animation_qfnet"),
+&"walk_foward": SubResource("Animation_71j4m"),
+&"walk_left": SubResource("Animation_i7141"),
+&"walk_up": SubResource("Animation_4mrxx")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_71j4m"]
+size = Vector2(103, 106)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_rwgxs"]
+distance = -324.0
+
+[node name="world" type="Node2D"]
+script = ExtResource("1_qfnet")
+metadata/_edit_horizontal_guides_ = [-60.0]
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_offset = Vector2(420, 177)
+repeat_size = Vector2(1100, 0)
+autoscroll = Vector2(-200, 0)
+
+[node name="MarSprite" type="Sprite2D" parent="Parallax2D"]
+texture_filter = 1
+position = Vector2(544.5, 147.00002)
+scale = Vector2(1.758786, 1.0383387)
+texture = ExtResource("1_nnsk1")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+script = ExtResource("5_qfnet")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+visible = false
+texture_filter = 1
+position = Vector2(203.5, 323)
+shape = SubResource("RectangleShape2D_k0juu")
+disabled = true
+
+[node name="Ship" type="Sprite2D" parent="Player"]
+texture_filter = 1
+position = Vector2(203, 320)
+texture = ExtResource("6_i7141")
+hframes = 3
+vframes = 3
+frame = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player/Ship"]
+libraries = {
+&"": SubResource("AnimationLibrary_7r4gi")
+}
+
+[node name="Area2D" type="Area2D" parent="Player"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/Area2D"]
+position = Vector2(197.5, 325)
+shape = SubResource("RectangleShape2D_71j4m")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+position = Vector2(264, 346)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-1, 0)
+shape = SubResource("WorldBoundaryShape2D_rwgxs")
+
+[node name="HUD" parent="." instance=ExtResource("5_i7141")]
+
+[connection signal="hit" from="Player" to="HUD" method="_on_player_hit"]
+[connection signal="area_entered" from="Player/Area2D" to="Player" method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Player/Area2D" to="Player" method="_on_area_2d_body_entered"]
+[connection signal="game_over" from="HUD" to="." method="_on_hud_game_over"]

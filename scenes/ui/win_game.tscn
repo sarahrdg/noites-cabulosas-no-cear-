@@ -1,0 +1,73 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scenes/ui/win_game.gd" id="2"]
+
+[ext_resource type="Texture2D" path="res://assets/noites/noites_background.png" id="1"]
+
+[node name="Vitoria" type="Control"]
+script = ExtResource("2")
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1")
+expand_mode = 1
+stretch_mode = 6
+
+[node name="Overlay" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.03, 0.04, 0.48)
+
+[node name="Title" type="Label" parent="."]
+offset_left = 180.0
+offset_top = 120.0
+offset_right = 972.0
+offset_bottom = 230.0
+text = "VOCÊ CHEGOU AO BINGO!"
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 50
+theme_override_colors/font_color = Color(0.95, 0.89, 0.70, 1)
+
+[node name="Text" type="Label" parent="."]
+offset_left = 250.0
+offset_top = 245.0
+offset_right = 902.0
+offset_bottom = 315.0
+text = "As oito paradas ficaram para trás. A noite ainda é assustadora, mas você sobreviveu."
+horizontal_alignment = 1
+theme_override_font_sizes/font_size = 20
+theme_override_colors/font_color = Color(0.84, 0.88, 0.77, 1)
+
+[node name="Retry" type="Button" parent="."]
+offset_left = 390.0
+offset_top = 355.0
+offset_right = 762.0
+offset_bottom = 420.0
+text = "JOGAR NOVAMENTE"
+theme_override_font_sizes/font_size = 19
+
+[node name="Menu" type="Button" parent="."]
+offset_left = 390.0
+offset_top = 440.0
+offset_right = 762.0
+offset_bottom = 505.0
+text = "MENU INICIAL"
+theme_override_font_sizes/font_size = 19
+
+[connection signal="pressed" from="Retry" to="." method="_on_retry_pressed"]
+[connection signal="pressed" from="Menu" to="." method="_on_menu_pressed"]
